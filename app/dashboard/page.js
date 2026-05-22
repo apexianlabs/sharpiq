@@ -47,7 +47,7 @@ export default function DashboardPage() {
   }
 
   const getInitials = (u) => {
-    if (!u) return '{{PRODUCT_NAME_INITIAL}}{{PRODUCT_NAME_INITIAL}}'
+    if (!u) return 'SS'
     const name = u.name || u.email || ''
     const parts = name.trim().split(' ')
     if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase()
@@ -69,10 +69,10 @@ export default function DashboardPage() {
       {/* Logo */}
       <div style={{padding:'20px 16px 16px',borderBottom:'1px solid rgba(255,255,255,0.06)'}}>
         <Link href="/" style={{display:'flex',alignItems:'center',gap:9,textDecoration:'none'}}>
-          <div style={{width:28,height:28,borderRadius:7,background:'#7c3aed',display:'flex',alignItems:'center',justifyContent:'center',fontSize:13,fontWeight:800,color:'#fff',flexShrink:0}}>{{PRODUCT_NAME_INITIAL}}</div>
+          <div style={{width:28,height:28,borderRadius:7,background:'#7c3aed',display:'flex',alignItems:'center',justifyContent:'center',fontSize:13,fontWeight:800,color:'#fff',flexShrink:0}}>S</div>
           <div>
             <p style={{fontSize:13,fontWeight:800,color:'#fff',lineHeight:1,letterSpacing:'-0.3px'}}>SharpIQ</p>
-            <p style={{fontSize:10,color:'#475569',lineHeight:1,marginTop:2}}>{{PRODUCT_TAGLINE_SHORT}}</p>
+            <p style={{fontSize:10,color:'#475569',lineHeight:1,marginTop:2}}>Bet smarter, track sharper</p>
           </div>
         </Link>
       </div>

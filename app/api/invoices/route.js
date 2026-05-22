@@ -5,7 +5,7 @@ export async function GET(request) {
     const user_id = searchParams.get('user_id')
     if (!user_id) return NextResponse.json({ invoices: [] })
     const subRes = await fetch(`${process.env.DB_API_URL}/db/subscriptions/${user_id}/sharpiq`, {
-      headers: { 'Authorization': `Bearer ${process.env.{{DB_KEY}}}` }
+      headers: { 'Authorization': `Bearer ${process.env.DB_API_KEY_SHARPIQ}` }
     })
     if (!subRes.ok) return NextResponse.json({ invoices: [] })
     const subData = await subRes.json()

@@ -20,7 +20,7 @@ export default function HomePage() {
       {/* Nav */}
       <nav style={{position:'sticky',top:0,zIndex:100,background:'rgba(255,255,255,0.92)',backdropFilter:'blur(12px)',borderBottom:'1px solid rgba(0,0,0,0.06)',padding:'0 24px',height:60,display:'flex',alignItems:'center',justifyContent:'space-between'}}>
         <div style={{display:'flex',alignItems:'center',gap:8}}>
-          <div style={{width:30,height:30,borderRadius:8,background:'#7c3aed',display:'flex',alignItems:'center',justifyContent:'center',fontSize:14,fontWeight:800,color:'#fff',letterSpacing:'-0.5px'}}>{{PRODUCT_NAME_INITIAL}}</div>
+          <div style={{width:30,height:30,borderRadius:8,background:'#7c3aed',display:'flex',alignItems:'center',justifyContent:'center',fontSize:14,fontWeight:800,color:'#fff',letterSpacing:'-0.5px'}}>S</div>
           <span style={{fontWeight:800,fontSize:17,color:'#0f172a',letterSpacing:'-0.3px'}}>SharpIQ</span>
         </div>
         <div style={{display:'flex',gap:8,alignItems:'center'}}>
@@ -35,7 +35,7 @@ export default function HomePage() {
           ✦ AI-Powered · Built for Professionals
         </div>
         <h1 style={{fontSize:'clamp(36px,5.5vw,64px)',fontWeight:900,lineHeight:1.05,letterSpacing:'-2px',marginBottom:20,maxWidth:760,margin:'0 auto 20px',color:'#0f172a'}}>
-          {{PRODUCT_HEADLINE}}
+          AI sports betting analysis
         </h1>
         <p style={{fontSize:'clamp(16px,2vw,19px)',color:'#64748b',maxWidth:520,margin:'0 auto 36px',lineHeight:1.65,fontWeight:400}}>
           AI sports betting tracker and picks analyser
@@ -108,7 +108,7 @@ export default function HomePage() {
       {/* Features */}
       <section id="features" style={{padding:'80px 24px',maxWidth:1000,margin:'0 auto'}}>
         <div style={{textAlign:'center',marginBottom:52}}>
-          <p style={{fontSize:11,fontWeight:700,color:'#7c3aed',textTransform:'uppercase',letterSpacing:'0.1em',marginBottom:12}}>WHY {{PRODUCT_NAME_UPPER}}</p>
+          <p style={{fontSize:11,fontWeight:700,color:'#7c3aed',textTransform:'uppercase',letterSpacing:'0.1em',marginBottom:12}}>WHY SHARPIQ</p>
           <h2 style={{fontSize:'clamp(28px,4vw,42px)',fontWeight:800,letterSpacing:'-1px',marginBottom:12,color:'#0f172a'}}>
             Everything you need.<br/>Nothing you don't.
           </h2>
@@ -218,7 +218,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer style={{padding:'28px 24px',borderTop:'1px solid #f1f5f9',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:12,background:'#fff'}}>
         <div style={{display:'flex',alignItems:'center',gap:8}}>
-          <div style={{width:22,height:22,borderRadius:5,background:'#7c3aed',display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:800,color:'#fff'}}>{{PRODUCT_NAME_INITIAL}}</div>
+          <div style={{width:22,height:22,borderRadius:5,background:'#7c3aed',display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:800,color:'#fff'}}>S</div>
           <span style={{fontWeight:700,fontSize:13,color:'#0f172a'}}>SharpIQ</span>
         </div>
         <p style={{fontSize:12,color:'#94a3b8'}}>© {new Date().getFullYear()} SharpIQ. Built on Claude AI.</p>
