@@ -18,7 +18,8 @@ function GeneratePageInner() {
     odds: '-110',
     stake: '100',
     book: 'DraftKings',
-    notes: ''
+    notes: '',
+    city: ''
   })
 
   const COLOR = '#7c3aed'
@@ -174,10 +175,20 @@ function GeneratePageInner() {
               </div>
             </div>
 
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14,marginBottom:14}}>
+              <div>
+                <label style={labelStyle}>Game City (for weather)</label>
+                <input style={inputStyle} placeholder="e.g. Kansas City, MO" value={form.city}
+                  onChange={e => setForm({...form, city: e.target.value})} />
+              </div>
+              <div style={{display:'flex',alignItems:'flex-end',paddingBottom:2}}>
+                <p style={{fontSize:11,color:'#94a3b8',lineHeight:1.5}}>Optional — adds live weather data for outdoor games</p>
+              </div>
+            </div>
             <div style={{marginBottom:20}}>
               <label style={labelStyle}>Context / Notes</label>
               <textarea style={{...inputStyle, height:70, resize:'vertical'}}
-                placeholder="Any relevant info — injuries, weather, line movement, matchup notes..."
+                placeholder="Any relevant info — injuries, line movement, matchup notes..."
                 value={form.notes} onChange={e => setForm({...form, notes: e.target.value})} />
             </div>
 
@@ -276,6 +287,20 @@ function GeneratePageInner() {
                 {copied ? '✓ Copied!' : '📋 Copy Analysis'}
               </button>
 
+              {result.liveOdds && (
+                <div style={{marginTop:12,background:'#f8fafc',borderRadius:8,padding:12,border:'1px solid #e2e8f0'}}>
+                  <div style={{fontSize:11,fontWeight:700,color:'#94a3b8',marginBottom:8}}>📡 LIVE MARKET ODDS</div>
+                  <div style={{fontSize:12,color:'#334155'}}>{result.liveOdds.awayTeam} @ {result.liveOdds.homeTeam}</div>
+                  {result.liveOdds.spread && <div style={{fontSize:11,color:'#64748b',marginTop:4}}>Spread: {result.liveOdds.spread.map(o => `${o.name} ${o.point > 0 ? '+' : ''}${o.point} (${o.price})`).join(' | ')}</div>}
+                  {result.liveOdds.total && <div style={{fontSize:11,color:'#64748b',marginTop:2}}>Total: {result.liveOdds.total.map(o => `${o.name} ${o.point} (${o.price})`).join(' | ')}</div>}
+                </div>
+              )}
+              {result.weather && (
+                <div style={{marginTop:8,background:'#f0f9ff',borderRadius:8,padding:10,border:'1px solid #bae6fd'}}>
+                  <div style={{fontSize:11,fontWeight:700,color:'#0284c7',marginBottom:4}}>🌤 GAME DAY WEATHER</div>
+                  <div style={{fontSize:11,color:'#334155'}}>{result.weather.temp}°F · {result.weather.description} · Wind: {result.weather.windSpeed}mph</div>
+                </div>
+              )}
               <Link href="/dashboard" style={{display:'block',marginTop:10,textAlign:'center',fontSize:13,color:'#94a3b8',textDecoration:'none'}}>View all bets →</Link>
             </div>
           )}
