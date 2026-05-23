@@ -1,233 +1,323 @@
+'use client'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
-const FEATURES = [
-  { icon: '⚡', title: 'AI-Powered in Seconds', desc: 'Claude AI generates professional results instantly — no templates, no blank pages, no wasted time.' },
-  { icon: '📄', title: 'Export Ready', desc: 'Download as DOCX or PDF instantly. Ready to use, send, or customise to your brand.' },
-  { icon: '📊', title: 'Track Everything', desc: 'Save your history, track performance, and improve over time from your personal dashboard.' },
-  { icon: '🔒', title: 'Private & Secure', desc: 'Your data is encrypted and never shared. Everything stays between you and your clients.' },
-]
+const Logo = ({ size = 32, color = '#7c3aed', initial = 'S' }) => (
+  <svg width={size} height={size} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor={color} stopOpacity="0.9"/>
+        <stop offset="100%" stopColor={color} stopOpacity="0.6"/>
+      </linearGradient>
+    </defs>
+    <rect width="100" height="100" rx="22" fill="url(#lg1)"/>
+    <text x="50" y="68" textAnchor="middle" fontSize="52" fontWeight="900" fontFamily="Arial,sans-serif" fill="white">{initial}</text>
+  </svg>
+)
 
-const TESTIMONIALS = [
-  { quote: 'SharpIQ saves me at least 3 hours a week. It handles the work I used to dread.', name: 'Sarah K.', role: 'Freelance Designer' },
-  { quote: 'The quality is remarkable. I customise slightly and it\'s better than what I wrote myself.', name: 'James T.', role: 'Agency Owner' },
-  { quote: 'Pays for itself with the first use. I don\'t know how I worked without it.', name: 'Maria L.', role: 'Marketing Consultant' },
-]
+export default function LandingPage() {
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [faqOpen, setFaqOpen]   = useState(null)
+  const [activeTab, setActiveTab] = useState(0)
 
-export default function HomePage() {
+  const COLOR   = '#7c3aed'
+  const NAME    = 'SharpIQ'
+  const TAGLINE = 'AI sports betting tracker and analyser'
+  const HEADLINE = 'Bet smarter with AI-powered analysis'
+  const ITEM    = 'Analysis'
+  const ITEMS   = 'Analyses'
+
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', fn)
+    return () => window.removeEventListener('scroll', fn)
+  }, [])
+
+  const features = [
+    { title: `AI-Powered ${ITEM} Generation`, desc: `Generate professional ${ITEMS.toLowerCase()} in under 60 seconds. AI writes it — you review and send.` },
+    { title: 'Smart Dashboard', desc: `Track all your ${ITEMS.toLowerCase()} in one place with real-time status updates and AI insights.` },
+    { title: 'AI Daily Briefing', desc: 'Start every day with an AI-generated summary of your pipeline and the one action that will have the biggest impact.' },
+    { title: 'Revenue Intelligence', desc: 'Forecast your revenue based on active pipeline and historical performance. Know what is coming before it arrives.' },
+    { title: 'Time Savings', desc: `Save 2+ hours per ${ITEM.toLowerCase()}. Stop doing manually what AI can do in seconds.` },
+    { title: 'Cmd+K Command Palette', desc: 'Navigate your entire workspace at the speed of thought. Search, generate and act — without lifting your hands off the keyboard.' },
+  ]
+
+  const steps = [
+    { n: '01', title: 'Describe your need', desc: `Enter the details of what you need. Takes under 30 seconds.` },
+    { n: '02', title: `AI generates your ${ITEM.toLowerCase()}`, desc: `AI creates a fully structured, professional ${ITEM.toLowerCase()} tailored to your specific situation.` },
+    { n: '03', title: 'Review and customise', desc: 'Every word is editable. Make it yours before you use it.' },
+    { n: '04', title: 'Track and win', desc: `Monitor your ${ITEMS.toLowerCase()} in your live dashboard with AI-powered recommendations.` },
+  ]
+
+  const pricing = [
+    { name: 'Starter', price: '$19', period: '/month', desc: 'For individuals starting out', features: [`3 ${ITEMS.toLowerCase()}/month`, 'AI generation', 'Dashboard tracking', 'Email support'], highlight: false },
+    { name: 'Pro',     price: '$39', period: '/month', desc: 'For growing professionals',   features: [`Unlimited ${ITEMS.toLowerCase()}`, 'AI Daily Briefing', 'Revenue forecasting', 'Priority support', 'Cmd+K palette'], highlight: true },
+    { name: 'Agency',  price: '$79', period: '/month', desc: 'For teams and agencies',      features: ['Everything in Pro', 'Team members', 'White-label output', 'Client portal', 'Dedicated support'], highlight: false },
+  ]
+
+  const faqs = [
+    { q: `How long does it take to generate a ${ITEM.toLowerCase()}?`, a: `Under 60 seconds from entering your details to having a fully structured, professional ${ITEM.toLowerCase()} ready to review.` },
+    { q: 'Can I customise the output?', a: 'Yes — everything is fully editable. AI gives you a strong starting point and you make it yours.' },
+    { q: 'Is my data safe?', a: 'Yes. We use enterprise-grade encryption. Your data is stored securely and only accessible to you. We never share or sell your data.' },
+    { q: `What happens when I hit the ${ITEM.toLowerCase()} limit on free?`, a: 'Upgrade to Pro at any time for unlimited usage. We never cut off access mid-session.' },
+    { q: 'Does it work for all industries?', a: `Yes — ${NAME} works for any professional or service-based business.` },
+  ]
+
+  const metrics = [
+    { value: '60s',  label: `Time to generate a ${ITEM.toLowerCase()}` },
+    { value: '2h+',  label: 'Saved per session vs manual work' },
+    { value: '10x',  label: 'Faster than doing it from scratch' },
+    { value: '500+', label: 'Professionals using the platform' },
+  ]
+
   return (
-    <div style={{minHeight:'100vh',fontFamily:'Inter,system-ui,sans-serif',background:'#fff',color:'#0f172a'}}>
+    <div style={{ fontFamily: 'Inter,Arial,sans-serif', background: '#fff', color: '#0f172a', overflowX: 'hidden' }}>
+      <style>{`
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+        .hero-1 { animation: fadeUp 0.7s ease forwards; }
+        .hero-2 { animation: fadeUp 0.7s ease 0.12s both; }
+        .hero-3 { animation: fadeUp 0.7s ease 0.24s both; }
+        .hero-4 { animation: fadeUp 0.7s ease 0.36s both; }
+        .feat-card:hover { border-color: #bfdbfe !important; box-shadow: 0 4px 20px rgba(37,99,235,0.08) !important; transform: translateY(-2px); }
+        .feat-card { transition: all 0.2s; }
+        .pricing-card:hover { transform: translateY(-3px); }
+        .pricing-card { transition: all 0.2s; }
+        @media (max-width: 640px) {
+          .nav-link { display: none !important; }
+          .hamburger { display: block !important; }
+          nav a[href="/signup"] { display: none !important; }
+          .hero-grid { grid-template-columns: 1fr !important; }
+          .metrics-grid { grid-template-columns: 1fr 1fr !important; }
+          .pricing-grid { grid-template-columns: 1fr !important; }
+          .steps-grid { grid-template-columns: 1fr 1fr !important; }
+          .features-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
 
       {/* Nav */}
-      <nav style={{position:'sticky',top:0,zIndex:100,background:'rgba(255,255,255,0.92)',backdropFilter:'blur(12px)',borderBottom:'1px solid rgba(0,0,0,0.06)',padding:'0 24px',height:60,display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-        <div style={{display:'flex',alignItems:'center',gap:8}}>
-          <div style={{width:30,height:30,borderRadius:8,background:'#7c3aed',display:'flex',alignItems:'center',justifyContent:'center',fontSize:14,fontWeight:800,color:'#fff',letterSpacing:'-0.5px'}}>S</div>
-          <span style={{fontWeight:800,fontSize:17,color:'#0f172a',letterSpacing:'-0.3px'}}>SharpIQ</span>
+      <nav style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, transition: 'all 0.25s',
+        background: scrolled ? 'rgba(255,255,255,0.97)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(16px)' : 'none',
+        borderBottom: scrolled ? '1px solid #e2e8f0' : 'none',
+        padding: '12px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
+          <Logo size={28} color={COLOR} initial={NAME[0]} />
+          <span style={{ fontSize: 15, fontWeight: 800, color: scrolled ? '#0f172a' : '#fff', letterSpacing: '-0.3px' }}>{NAME}</span>
         </div>
-        <div style={{display:'flex',gap:8,alignItems:'center'}}>
-          <Link href="/login" style={{padding:'7px 16px',fontSize:13,color:'#64748b',textDecoration:'none',fontWeight:500,borderRadius:8}}>Sign in</Link>
-          <Link href="/signup" style={{padding:'8px 18px',fontSize:13,background:'#7c3aed',color:'#fff',textDecoration:'none',borderRadius:8,fontWeight:600,letterSpacing:'-0.2px'}}>Start free</Link>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <a href="#features" className="nav-link" style={{ fontSize: 13, color: scrolled ? '#475569' : 'rgba(255,255,255,0.8)', textDecoration: 'none', fontWeight: 500 }}>Features</a>
+          <a href="#pricing" className="nav-link" style={{ fontSize: 13, color: scrolled ? '#475569' : 'rgba(255,255,255,0.8)', textDecoration: 'none', fontWeight: 500 }}>Pricing</a>
+          <Link href="/login" className="nav-link" style={{ fontSize: 13, color: scrolled ? '#475569' : 'rgba(255,255,255,0.8)', textDecoration: 'none', fontWeight: 500 }}>Log in</Link>
+          <Link href="/signup" style={{ background: COLOR, color: '#fff', padding: '7px 14px', borderRadius: 7, fontSize: 13, fontWeight: 700, textDecoration: 'none' }}>Get started</Link>
+          <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)} style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', padding: 4, color: scrolled ? '#0f172a' : '#fff', fontSize: 20, lineHeight: 1 }}>
+            {menuOpen ? '✕' : '☰'}
+          </button>
         </div>
       </nav>
 
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div style={{ position: 'fixed', top: 52, left: 0, right: 0, zIndex: 49, background: 'rgba(9,11,24,0.98)', backdropFilter: 'blur(20px)', padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', gap: 2 }}>
+          {['Features', 'Pricing'].map((l, i) => (
+            <a key={i} href={`#${l.toLowerCase()}`} onClick={() => setMenuOpen(false)}
+              style={{ fontSize: 15, color: '#e2e8f0', textDecoration: 'none', fontWeight: 500, padding: '12px 4px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>{l}</a>
+          ))}
+          <Link href="/login" onClick={() => setMenuOpen(false)} style={{ fontSize: 15, color: '#e2e8f0', textDecoration: 'none', fontWeight: 500, padding: '12px 4px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>Log in</Link>
+          <Link href="/signup" onClick={() => setMenuOpen(false)} style={{ display: 'block', marginTop: 12, background: COLOR, color: '#fff', padding: '12px', borderRadius: 9, fontSize: 14, fontWeight: 700, textDecoration: 'none', textAlign: 'center' }}>Get started free</Link>
+        </div>
+      )}
+
       {/* Hero */}
-      <section style={{padding:'96px 24px 80px',textAlign:'center',background:'linear-gradient(180deg,#fafbff 0%,#fff 60%)'}}>
-        <div style={{display:'inline-flex',alignItems:'center',gap:6,background:'rgba(0,0,0,0.04)',border:'1px solid rgba(0,0,0,0.08)',borderRadius:20,padding:'5px 14px',fontSize:12,color:'#64748b',fontWeight:600,marginBottom:24,letterSpacing:'0.02em',textTransform:'uppercase'}}>
-          ✦ AI-Powered · Built for Professionals
-        </div>
-        <h1 style={{fontSize:'clamp(36px,5.5vw,64px)',fontWeight:900,lineHeight:1.05,letterSpacing:'-2px',marginBottom:20,maxWidth:760,margin:'0 auto 20px',color:'#0f172a'}}>
-          AI sports betting analysis
-        </h1>
-        <p style={{fontSize:'clamp(16px,2vw,19px)',color:'#64748b',maxWidth:520,margin:'0 auto 36px',lineHeight:1.65,fontWeight:400}}>
-          AI sports betting tracker and picks analyser
-        </p>
-        <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',marginBottom:20}}>
-          <Link href="/generate" style={{padding:'14px 28px',background:'#7c3aed',color:'#fff',textDecoration:'none',borderRadius:10,fontWeight:700,fontSize:15,letterSpacing:'-0.2px',boxShadow:'0 4px 14px rgba(0,0,0,0.15)'}}>
-            Try it free →
-          </Link>
-          <Link href="/signup" style={{padding:'14px 28px',background:'#fff',color:'#0f172a',textDecoration:'none',borderRadius:10,fontWeight:600,fontSize:15,border:'1.5px solid #e2e8f0'}}>
-            Create account
-          </Link>
-        </div>
-        <p style={{fontSize:12,color:'#94a3b8',letterSpacing:'0.01em'}}>
-          ✓ No credit card &nbsp;·&nbsp; ✓ 3 free uses &nbsp;·&nbsp; ✓ Setup in 30 seconds
-        </p>
+      <div style={{
+        minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: '100px 24px 60px', textAlign: 'center', position: 'relative', overflow: 'hidden',
+        background: 'linear-gradient(135deg,#070b1f 0%,#0d1f5c 45%,#070b1f 100%)'
+      }}>
+        <div style={{ position: 'absolute', top: '20%', left: '5%', width: 400, height: 400, borderRadius: '50%', background: `${COLOR}09`, filter: 'blur(80px)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: '10%', right: '5%', width: 300, height: 300, borderRadius: '50%', background: 'rgba(139,92,246,0.06)', filter: 'blur(80px)', pointerEvents: 'none' }} />
 
-        {/* Product visual */}
-        <div style={{maxWidth:860,margin:'56px auto 0',borderRadius:16,border:'1px solid #e8ecf0',boxShadow:'0 24px 64px rgba(0,0,0,0.08)',overflow:'hidden',background:'#fff'}}>
-          <div style={{background:'#f8fafc',borderBottom:'1px solid #e8ecf0',padding:'12px 20px',display:'flex',alignItems:'center',gap:8}}>
-            <div style={{display:'flex',gap:6}}>
-              {['#fca5a5','#fde68a','#86efac'].map(c => <div key={c} style={{width:11,height:11,borderRadius:'50%',background:c}}/>)}
-            </div>
-            <div style={{flex:1,background:'#fff',borderRadius:6,height:26,margin:'0 12px',display:'flex',alignItems:'center',padding:'0 12px',border:'1px solid #e8ecf0'}}>
-              <span style={{fontSize:11,color:'#94a3b8'}}>app.sharpiq.app/generate</span>
-            </div>
+        <div style={{ maxWidth: 720, position: 'relative', zIndex: 1 }}>
+          <div className="hero-1" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 24, padding: '5px 16px', marginBottom: 28 }}>
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#60a5fa', animation: 'pulse 2s infinite' }} />
+            <span style={{ fontSize: 12, color: '#93c5fd', fontWeight: 600 }}>{NAME} AI · Built for professionals</span>
           </div>
-          <div style={{padding:'32px',background:'#fff',minHeight:200,display:'flex',alignItems:'center',justifyContent:'center'}}>
-            <div style={{width:'100%',maxWidth:600}}>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:20}}>
-                <div style={{background:'#f8fafc',borderRadius:10,border:'1px solid #e8ecf0',padding:20}}>
-                  <p style={{fontSize:10,fontWeight:700,color:'#7c3aed',textTransform:'uppercase',letterSpacing:'0.06em',marginBottom:12}}>Input</p>
-                  {['Client details','Project description','Requirements'].map((f,i) => (
-                    <div key={i} style={{background:'#fff',border:'1px solid #e8ecf0',borderRadius:6,padding:'8px 10px',marginBottom:8,fontSize:12,color:'#64748b'}}>{f}</div>
-                  ))}
-                  <div style={{background:'#7c3aed',color:'#fff',borderRadius:7,padding:'9px',textAlign:'center',fontWeight:700,fontSize:12,marginTop:12}}>Generate →</div>
-                </div>
-                <div style={{background:'#f8fafc',borderRadius:10,border:'1px solid #e8ecf0',padding:20}}>
-                  <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:12}}>
-                    <p style={{fontSize:10,fontWeight:700,color:'#7c3aed',textTransform:'uppercase',letterSpacing:'0.06em'}}>Result</p>
-                    <span style={{background:'#dcfce7',color:'#15803d',fontSize:9,fontWeight:700,padding:'2px 7px',borderRadius:8}}>Ready</span>
-                  </div>
-                  {['Professional output','Fully structured','Ready to use'].map((f,i) => (
-                    <div key={i} style={{background:'#fff',border:'1px solid #e8ecf0',borderRadius:6,padding:'8px 10px',marginBottom:8,fontSize:12,color:'#374151',display:'flex',alignItems:'center',gap:6}}>
-                      <span style={{color:'#7c3aed',fontSize:10}}>✓</span>{f}
-                    </div>
-                  ))}
-                  <div style={{display:'flex',gap:8,marginTop:12}}>
-                    <div style={{flex:1,background:'#7c3aed',color:'#fff',borderRadius:6,padding:'7px',textAlign:'center',fontSize:10,fontWeight:700}}>DOCX</div>
-                    <div style={{flex:1,background:'#dc2626',color:'#fff',borderRadius:6,padding:'7px',textAlign:'center',fontSize:10,fontWeight:700}}>PDF</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+          <h1 className="hero-2" style={{ fontSize: 'clamp(36px,5.5vw,62px)', fontWeight: 900, color: '#fff', lineHeight: 1.08, marginBottom: 20, letterSpacing: '-1.5px' }}>
+            {HEADLINE}
+          </h1>
+
+          <p className="hero-3" style={{ fontSize: 'clamp(16px,2vw,19px)', color: '#94a3b8', lineHeight: 1.65, marginBottom: 40, maxWidth: 540, margin: '0 auto 40px' }}>
+            {TAGLINE}
+          </p>
+
+          <div className="hero-4" style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 32 }}>
+            <Link href="/signup" style={{ background: `linear-gradient(135deg,${COLOR},${COLOR}cc)`, color: '#fff', padding: '13px 28px', borderRadius: 9, fontSize: 14, fontWeight: 700, textDecoration: 'none', boxShadow: `0 4px 24px ${COLOR}44` }}>
+              Start free — no credit card
+            </Link>
+            <Link href="/login" style={{ background: 'rgba(255,255,255,0.06)', color: '#cbd5e1', padding: '13px 22px', borderRadius: 9, fontSize: 14, fontWeight: 600, textDecoration: 'none', border: '1px solid rgba(255,255,255,0.1)' }}>
+              Log in
+            </Link>
+          </div>
+
+          <div style={{ display: 'flex', gap: 20, justifyContent: 'center', flexWrap: 'wrap' }}>
+            {['Free plan included', 'No credit card', '60-second setup'].map((t, i) => (
+              <span key={i} style={{ fontSize: 12, color: '#475569', display: 'flex', alignItems: 'center', gap: 5 }}>
+                <span style={{ color: '#16a34a', fontWeight: 700 }}>✓</span> {t}
+              </span>
+            ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Social proof bar */}
-      <section style={{padding:'20px 24px',borderTop:'1px solid #f1f5f9',borderBottom:'1px solid #f1f5f9',background:'#fafafa'}}>
-        <div style={{maxWidth:900,margin:'0 auto',display:'flex',alignItems:'center',justifyContent:'center',gap:40,flexWrap:'wrap'}}>
-          {[['2+ hrs','Saved per task'],['30 sec','To first result'],['3 free','No card needed']].map(([stat,label]) => (
-            <div key={stat} style={{textAlign:'center'}}>
-              <p style={{fontSize:22,fontWeight:800,color:'#7c3aed',letterSpacing:'-0.5px',marginBottom:2}}>{stat}</p>
-              <p style={{fontSize:11,color:'#94a3b8',fontWeight:500}}>{label}</p>
+      {/* Metrics */}
+      <div style={{ background: '#0a0f2e', padding: '32px 24px', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+        <div style={{ maxWidth: 960, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 24, textAlign: 'center' }} className="metrics-grid">
+          {metrics.map((m, i) => (
+            <div key={i}>
+              <div style={{ fontSize: 32, fontWeight: 900, color: '#60a5fa', letterSpacing: '-1px', marginBottom: 4 }}>{m.value}</div>
+              <div style={{ fontSize: 12, color: '#334155', fontWeight: 500, lineHeight: 1.4 }}>{m.label}</div>
             </div>
           ))}
         </div>
-      </section>
+      </div>
 
       {/* Features */}
-      <section id="features" style={{padding:'80px 24px',maxWidth:1000,margin:'0 auto'}}>
-        <div style={{textAlign:'center',marginBottom:52}}>
-          <p style={{fontSize:11,fontWeight:700,color:'#7c3aed',textTransform:'uppercase',letterSpacing:'0.1em',marginBottom:12}}>WHY SHARPIQ</p>
-          <h2 style={{fontSize:'clamp(28px,4vw,42px)',fontWeight:800,letterSpacing:'-1px',marginBottom:12,color:'#0f172a'}}>
-            Everything you need.<br/>Nothing you don't.
-          </h2>
-          <p style={{fontSize:16,color:'#64748b',maxWidth:460,margin:'0 auto'}}>Built for professionals who need results fast, not another tool to learn.</p>
-        </div>
-        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(220px,1fr))',gap:16}}>
-          {FEATURES.map(f => (
-            <div key={f.title} style={{background:'#fafafa',borderRadius:14,border:'1px solid #f1f5f9',padding:24,transition:'all 0.2s'}}>
-              <div style={{width:40,height:40,borderRadius:10,background:'#fff',border:'1px solid #e8ecf0',display:'flex',alignItems:'center',justifyContent:'center',fontSize:20,marginBottom:14,boxShadow:'0 1px 4px rgba(0,0,0,0.06)'}}>{f.icon}</div>
-              <h3 style={{fontSize:14,fontWeight:700,color:'#0f172a',marginBottom:6,letterSpacing:'-0.2px'}}>{f.title}</h3>
-              <p style={{fontSize:13,color:'#64748b',lineHeight:1.6}}>{f.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section style={{padding:'80px 24px',background:'#0f172a'}}>
-        <div style={{maxWidth:1000,margin:'0 auto'}}>
-          <div style={{textAlign:'center',marginBottom:48}}>
-            <p style={{fontSize:11,fontWeight:700,color:'#7c3aed',textTransform:'uppercase',letterSpacing:'0.1em',marginBottom:12}}>TRUSTED BY PROS</p>
-            <h2 style={{fontSize:'clamp(28px,4vw,42px)',fontWeight:800,color:'#fff',letterSpacing:'-1px'}}>
-              Real results from real users.
-            </h2>
+      <div id="features" style={{ padding: '80px 24px', background: '#f8fafc' }}>
+        <div style={{ maxWidth: 960, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 52 }}>
+            <h2 style={{ fontSize: 'clamp(26px,4vw,38px)', fontWeight: 800, color: '#0f172a', marginBottom: 10, letterSpacing: '-0.5px' }}>Everything you need to work smarter</h2>
+            <p style={{ fontSize: 15, color: '#64748b', maxWidth: 440, margin: '0 auto' }}>Built for professionals who want to spend less time on admin and more time on work that matters.</p>
           </div>
-          <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(260px,1fr))',gap:16}}>
-            {TESTIMONIALS.map(t => (
-              <div key={t.name} style={{background:'rgba(255,255,255,0.05)',borderRadius:14,border:'1px solid rgba(255,255,255,0.08)',padding:24}}>
-                <div style={{color:'#fbbf24',fontSize:14,marginBottom:14,letterSpacing:'2px'}}>★★★★★</div>
-                <p style={{fontSize:14,color:'#cbd5e1',lineHeight:1.7,marginBottom:16,fontStyle:'italic'}}>"{t.quote}"</p>
-                <div style={{display:'flex',alignItems:'center',gap:10}}>
-                  <div style={{width:32,height:32,borderRadius:'50%',background:'#7c3aed',display:'flex',alignItems:'center',justifyContent:'center',fontSize:12,fontWeight:700,color:'#fff'}}>{t.name[0]}</div>
-                  <div>
-                    <p style={{fontSize:13,fontWeight:600,color:'#fff'}}>{t.name}</p>
-                    <p style={{fontSize:11,color:'#64748b'}}>{t.role}</p>
-                  </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(270px,1fr))', gap: 20 }} className="features-grid">
+            {features.map((f, i) => (
+              <div key={i} className="feat-card" style={{ background: '#fff', borderRadius: 14, padding: '24px', border: '1px solid #e2e8f0', boxShadow: 'none' }}>
+                <div style={{ width: 36, height: 36, borderRadius: 9, background: `${COLOR}12`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 14 }}>
+                  <div style={{ width: 14, height: 14, borderRadius: '50%', background: COLOR }} />
                 </div>
+                <h3 style={{ fontSize: 15, fontWeight: 700, color: '#0f172a', marginBottom: 8 }}>{f.title}</h3>
+                <p style={{ fontSize: 13, color: '#64748b', lineHeight: 1.65 }}>{f.desc}</p>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </div>
+
+      {/* How it works */}
+      <div style={{ padding: '80px 24px', background: '#fff' }}>
+        <div style={{ maxWidth: 900, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 52 }}>
+            <h2 style={{ fontSize: 'clamp(26px,4vw,36px)', fontWeight: 800, color: '#0f172a', marginBottom: 10, letterSpacing: '-0.5px' }}>Up and running in minutes</h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 28 }} className="steps-grid">
+            {steps.map((s, i) => (
+              <div key={i}>
+                <div style={{ fontSize: 34, fontWeight: 900, color: '#e2e8f0', lineHeight: 1, marginBottom: 10 }}>{s.n}</div>
+                <h3 style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', marginBottom: 6 }}>{s.title}</h3>
+                <p style={{ fontSize: 12, color: '#64748b', lineHeight: 1.6 }}>{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* Pricing */}
-      <section id="pricing" style={{padding:'80px 24px',maxWidth:900,margin:'0 auto'}}>
-        <div style={{textAlign:'center',marginBottom:48}}>
-          <p style={{fontSize:11,fontWeight:700,color:'#7c3aed',textTransform:'uppercase',letterSpacing:'0.1em',marginBottom:12}}>PRICING</p>
-          <h2 style={{fontSize:'clamp(28px,4vw,42px)',fontWeight:800,letterSpacing:'-1px',marginBottom:8,color:'#0f172a'}}>
-            Start free. Scale when ready.
-          </h2>
-          <p style={{fontSize:15,color:'#64748b'}}>One saved hour pays for months of SharpIQ.</p>
+      <div id="pricing" style={{ padding: '80px 24px', background: '#f8fafc' }}>
+        <div style={{ maxWidth: 960, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 52 }}>
+            <h2 style={{ fontSize: 'clamp(26px,4vw,36px)', fontWeight: 800, color: '#0f172a', marginBottom: 10, letterSpacing: '-0.5px' }}>Simple pricing. No surprises.</h2>
+            <p style={{ fontSize: 15, color: '#64748b' }}>Start free. Upgrade when you are ready.</p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20, alignItems: 'center' }} className="pricing-grid">
+            {pricing.map((p, i) => (
+              <div key={i} className="pricing-card" style={{
+                borderRadius: 16, padding: '28px 24px', position: 'relative',
+                background: p.highlight ? 'linear-gradient(145deg,#1a3a8f,#1a1040)' : '#fff',
+                border: p.highlight ? 'none' : '1px solid #e2e8f0',
+                boxShadow: p.highlight ? `0 20px 60px ${COLOR}40, 0 0 0 1px rgba(99,102,241,0.2)` : '0 1px 4px rgba(0,0,0,0.04)',
+                transform: p.highlight ? 'scale(1.04)' : 'none'
+              }}>
+                {p.highlight && (
+                  <>
+                    <div style={{ position: 'absolute', top: 0, left: '20%', right: '20%', height: 1, background: 'linear-gradient(90deg,transparent,rgba(99,102,241,0.6),transparent)' }} />
+                    <div style={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', background: `linear-gradient(135deg,${COLOR},#8b5cf6)`, color: '#fff', fontSize: 10, fontWeight: 700, padding: '4px 14px', borderRadius: 20, whiteSpace: 'nowrap' }}>MOST POPULAR</div>
+                  </>
+                )}
+                <div style={{ fontSize: 12, fontWeight: 600, color: p.highlight ? '#93c5fd' : '#64748b', marginBottom: 6 }}>{p.name}</div>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 2, marginBottom: 4 }}>
+                  <span style={{ fontSize: 38, fontWeight: 900, color: p.highlight ? '#fff' : '#0f172a', letterSpacing: '-1px' }}>{p.price}</span>
+                  <span style={{ fontSize: 13, color: p.highlight ? '#93c5fd' : '#94a3b8' }}>{p.period}</span>
+                </div>
+                <div style={{ fontSize: 13, color: p.highlight ? '#bfdbfe' : '#64748b', marginBottom: 22 }}>{p.desc}</div>
+                <div style={{ marginBottom: 24 }}>
+                  {p.features.map((f, j) => (
+                    <div key={j} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 9 }}>
+                      <span style={{ color: p.highlight ? '#60a5fa' : '#16a34a', fontSize: 13, fontWeight: 700, flexShrink: 0 }}>✓</span>
+                      <span style={{ fontSize: 13, color: p.highlight ? '#e0f2fe' : '#334155' }}>{f}</span>
+                    </div>
+                  ))}
+                </div>
+                <Link href="/signup" style={{ display: 'block', textAlign: 'center', padding: '11px', borderRadius: 9, background: p.highlight ? 'rgba(255,255,255,0.14)' : COLOR, color: '#fff', textDecoration: 'none', fontSize: 13, fontWeight: 700, border: p.highlight ? '1px solid rgba(255,255,255,0.18)' : 'none' }}>
+                  Start free trial
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
-        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))',gap:14}}>
-          {[
-            { name:'Free', price:'$0', desc:'Try it out', features:['3 uses/month','AI generation','Export results'], cta:'Get started', highlight:false },
-            { name:'Starter', price:'$19', desc:'For solo pros', features:['50 uses/month','All features','Email support'], cta:'Start free trial', highlight:false },
-            { name:'Pro', price:'$39', desc:'For agencies', features:['Unlimited','Priority support','API access'], cta:'Start free trial', highlight:true },
-            { name:'Studio', price:'$99', desc:'For teams', features:['Unlimited','Team seats','Dedicated support'], cta:'Start free trial', highlight:false },
-          ].map(plan => (
-            <div key={plan.name} style={{borderRadius:14,border: plan.highlight ? '2px solid #7c3aed' : '1px solid #e8ecf0',padding:22,background: plan.highlight ? '#fafbff' : '#fff',position:'relative'}}>
-              {plan.highlight && <div style={{position:'absolute',top:-12,left:'50%',transform:'translateX(-50%)',background:'#7c3aed',color:'#fff',fontSize:10,fontWeight:700,padding:'3px 12px',borderRadius:10,whiteSpace:'nowrap',letterSpacing:'0.03em'}}>Most Popular</div>}
-              <p style={{fontSize:14,fontWeight:700,color:'#0f172a',marginBottom:2,letterSpacing:'-0.2px'}}>{plan.name}</p>
-              <p style={{fontSize:11,color:'#94a3b8',marginBottom:12}}>{plan.desc}</p>
-              <div style={{display:'flex',alignItems:'baseline',gap:2,marginBottom:16}}>
-                <span style={{fontSize:30,fontWeight:800,color:'#0f172a',letterSpacing:'-1px'}}>{plan.price}</span>
-                <span style={{fontSize:12,color:'#94a3b8'}}>/mo</span>
-              </div>
-              <Link href="/signup" style={{display:'block',textAlign:'center',padding:'10px',borderRadius:8,
-                background: plan.highlight ? '#7c3aed' : '#f8fafc',
-                color: plan.highlight ? '#fff' : '#0f172a',
-                textDecoration:'none',fontWeight:600,fontSize:12,marginBottom:14,
-                border: plan.highlight ? 'none' : '1px solid #e8ecf0'}}>
-                {plan.cta}
-              </Link>
-              <div style={{borderTop:'1px solid #f1f5f9',paddingTop:12}}>
-                {plan.features.map(f => (
-                  <div key={f} style={{display:'flex',gap:8,marginBottom:7,alignItems:'flex-start'}}>
-                    <span style={{color:'#7c3aed',fontSize:12,marginTop:1,flexShrink:0}}>✓</span>
-                    <span style={{fontSize:12,color:'#475569',lineHeight:1.4}}>{f}</span>
-                  </div>
-                ))}
-              </div>
+      </div>
+
+      {/* FAQ */}
+      <div style={{ padding: '80px 24px', background: '#fff' }}>
+        <div style={{ maxWidth: 620, margin: '0 auto' }}>
+          <h2 style={{ fontSize: 'clamp(24px,3vw,34px)', fontWeight: 800, color: '#0f172a', marginBottom: 40, textAlign: 'center', letterSpacing: '-0.5px' }}>Questions answered</h2>
+          {faqs.map((faq, i) => (
+            <div key={i} style={{ borderBottom: '1px solid #f1f5f9' }}>
+              <button onClick={() => setFaqOpen(faqOpen === i ? null : i)} style={{ width: '100%', textAlign: 'left', padding: '17px 0', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
+                <span style={{ fontSize: 14, fontWeight: 600, color: '#0f172a' }}>{faq.q}</span>
+                <span style={{ fontSize: 18, color: '#94a3b8', flexShrink: 0, transition: 'transform 0.2s', transform: faqOpen === i ? 'rotate(45deg)' : 'none', display: 'inline-block' }}>+</span>
+              </button>
+              {faqOpen === i && <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.7, paddingBottom: 16 }}>{faq.a}</div>}
             </div>
           ))}
         </div>
-      </section>
+      </div>
 
-      {/* Final CTA */}
-      <section style={{padding:'80px 24px',textAlign:'center',background:'linear-gradient(135deg,#7c3aed 0%,#7c3aeddd 100%)'}}>
-        <h2 style={{fontSize:'clamp(26px,4vw,42px)',fontWeight:800,color:'#fff',letterSpacing:'-1px',marginBottom:12}}>
-          Start saving time today.
-        </h2>
-        <p style={{fontSize:16,color:'rgba(255,255,255,0.8)',marginBottom:32,maxWidth:400,margin:'0 auto 32px'}}>
-          Join professionals who use SharpIQ to work faster and earn more.
-        </p>
-        <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',marginBottom:16}}>
-          <Link href="/signup" style={{padding:'14px 28px',background:'#fff',color:'#7c3aed',textDecoration:'none',borderRadius:10,fontWeight:700,fontSize:15,letterSpacing:'-0.2px'}}>
-            Start free →
+      {/* CTA */}
+      <div style={{ padding: '80px 24px', background: 'linear-gradient(135deg,#070b1f,#0d1f5c)', textAlign: 'center' }}>
+        <div style={{ maxWidth: 500, margin: '0 auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
+            <Logo size={44} color={COLOR} initial={NAME[0]} />
+          </div>
+          <h2 style={{ fontSize: 'clamp(26px,4vw,38px)', fontWeight: 900, color: '#fff', marginBottom: 12, letterSpacing: '-0.5px', lineHeight: 1.1 }}>
+            Start working smarter today
+          </h2>
+          <p style={{ fontSize: 15, color: '#475569', marginBottom: 32, lineHeight: 1.6 }}>
+            Join professionals using {NAME} to save time, work smarter and get better results.
+          </p>
+          <Link href="/signup" style={{ background: `linear-gradient(135deg,${COLOR},${COLOR}cc)`, color: '#fff', padding: '14px 32px', borderRadius: 10, fontSize: 15, fontWeight: 700, textDecoration: 'none', boxShadow: `0 4px 24px ${COLOR}44`, display: 'inline-block' }}>
+            Start free
           </Link>
-          <Link href="/generate" style={{padding:'14px 28px',background:'rgba(255,255,255,0.15)',color:'#fff',textDecoration:'none',borderRadius:10,fontWeight:600,fontSize:15,border:'1px solid rgba(255,255,255,0.3)'}}>
-            Try demo
-          </Link>
+          <p style={{ fontSize: 12, color: '#334155', marginTop: 14 }}>No credit card required</p>
         </div>
-        <p style={{fontSize:12,color:'rgba(255,255,255,0.6)'}}>✓ No credit card &nbsp;·&nbsp; ✓ Cancel anytime &nbsp;·&nbsp; ✓ 3 free uses</p>
-      </section>
+      </div>
 
       {/* Footer */}
-      <footer style={{padding:'28px 24px',borderTop:'1px solid #f1f5f9',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:12,background:'#fff'}}>
-        <div style={{display:'flex',alignItems:'center',gap:8}}>
-          <div style={{width:22,height:22,borderRadius:5,background:'#7c3aed',display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:800,color:'#fff'}}>S</div>
-          <span style={{fontWeight:700,fontSize:13,color:'#0f172a'}}>SharpIQ</span>
+      <div style={{ background: '#030712', padding: '24px 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Logo size={22} color={COLOR} initial={NAME[0]} />
+          <span style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>{NAME}</span>
         </div>
-        <p style={{fontSize:12,color:'#94a3b8'}}>© {new Date().getFullYear()} SharpIQ. Built on Claude AI.</p>
-        <div style={{display:'flex',gap:20}}>
-          {[['Privacy','/privacy'],['Terms','/terms'],['Support','/support']].map(([l,h]) => (
-            <a key={l} href={h} style={{fontSize:12,color:'#64748b',textDecoration:'none'}}>{l}</a>
+        <span style={{ fontSize: 12, color: '#1e293b' }}>© 2026 {NAME}</span>
+        <div style={{ display: 'flex', gap: 20 }}>
+          {['Privacy', 'Terms', 'Support'].map(l => (
+            <a key={l} href={`/${l.toLowerCase()}`} style={{ fontSize: 12, color: '#1e293b', textDecoration: 'none' }}>{l}</a>
           ))}
         </div>
-      </footer>
+      </div>
     </div>
   )
 }
