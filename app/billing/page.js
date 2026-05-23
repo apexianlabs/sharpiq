@@ -3,6 +3,14 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
+const Logo = ({ size = 28 }) => (
+  <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="32" height="32" rx="8" fill="#2563eb"/>
+    <text x="16" y="23" textAnchor="middle" fontSize="18" fontWeight="900" fontFamily="Arial,sans-serif" fill="white">A</text>
+  </svg>
+)
+
+
 const PLANS = [
   { id: 'free',    name: 'Free',    price: '$0',  period: '/month', desc: 'Try it out', features: ['3 free uses', 'AI generation', 'Export results'], cta: 'Current Plan' },
   { id: 'starter', name: 'Starter', price: '$19', period: '/month', desc: 'For solo pros', features: ['50 per month', 'All features', 'Email support'], cta: 'Upgrade' },
@@ -54,7 +62,7 @@ export default function BillingPage() {
     <div style={{minHeight:'100vh',background:'#f8fafc',fontFamily:'Inter,sans-serif'}}>
       <nav style={{background:'#fff',borderBottom:'1px solid #e2e8f0',height:56,display:'flex',alignItems:'center',padding:'0 24px',gap:16}}>
         <Link href="/dashboard" style={{display:'flex',alignItems:'center',gap:8,textDecoration:'none'}}>
-          <div style={{width:28,height:28,borderRadius:6,background:'#7c3aed',display:'flex',alignItems:'center',justifyContent:'center',fontSize:13,fontWeight:800,color:'#fff'}}>S</div>
+          <Logo size={28}/>
           <span style={{fontWeight:700,color:'#0f172a',fontSize:14}}>SharpIQ</span>
         </Link>
         <div style={{flex:1}}/>
