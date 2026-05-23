@@ -1,4 +1,5 @@
 export const metadata = {
+  icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
   title: 'SharpIQ — AI sports betting tracker and picks analyser',
   description: 'AI sports betting tracker and picks analyser',
 }
